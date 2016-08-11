@@ -95,13 +95,13 @@ class TFFMCore():
             if i == 1:
                 r = 1
             rnd_weights = tf.random_uniform([self.n_features, r], -self.init_std, self.init_std)
-            self.w[i - 1] = tf.Variable(rnd_weights, trainable=True, name='embedding_' + str(i))
+            self.w[i - 1] = tf.Variable(rnd_weights, trainable=True, name='embedding_' + str(i)) #trainable=True：训练参数
         self.b = tf.Variable(self.init_std, trainable=True, name='bias')
-        tf.scalar_summary('bias', self.b)
+        tf.scalar_summary('bias', self.b) #统计self.b的变化
 
     def init_placeholders(self):
         if self.input_type == 'dense':
-            self.train_x = tf.placeholder(tf.float32, shape=[None, self.n_features], name='x')
+            self.train_x = tf.placeholder(tf.float32, shape=[None, self.n_features], name='x') #[None, self.n_features]是一个行向量，值为None
         else:
             self.raw_indices = tf.placeholder(tf.int64, shape=[None, 2], name='raw_indices')
             self.raw_values = tf.placeholder(tf.float32, shape=[None], name='raw_data')
